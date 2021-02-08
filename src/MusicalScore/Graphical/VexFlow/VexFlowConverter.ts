@@ -31,6 +31,8 @@ import { PlacementEnum } from "../../VoiceData/Expressions/AbstractExpression";
 import { GraphicalStaffEntry } from "../GraphicalStaffEntry";
 import { Articulation } from "../../VoiceData/Articulation";
 
+import { BreathModifier } from "./Breath";
+
 /**
  * Helper class, which contains static methods which actually convert
  * from OSMD objects to VexFlow objects.
@@ -539,6 +541,14 @@ export class VexFlowConverter {
                     vfArt = new Vex.Flow.Articulation("a^");
                     break;
                 }
+                case ArticulationEnum.breathmark: {
+                    const breathAnnot: any = new BreathModifier();
+                    breathAnnot.setFont("Times", 18, "bold");
+                    breathAnnot.setPosition(Vex.Flow.Annotation.Position.LEFT);
+                    breathAnnot.setJustification(Vex.Flow.Annotation.Justify.LEFT);
+                    (vfnote as StaveNote).addAnnotation(0, breathAnnot);
+                    break;
+                }
                 default: {
                     break;
                 }
@@ -957,5 +967,3 @@ export class VexFlowConverter {
         return ret;
     }
 }
-
-
